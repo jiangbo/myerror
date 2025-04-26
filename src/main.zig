@@ -5,10 +5,13 @@ const sk = @import("sokol");
 var rand: std.Random = undefined;
 
 export fn init() void {
+    // method 2
+    // initRand();
+
+    // method 3
     var prng = std.Random.DefaultPrng.init(@intCast(std.time.timestamp()));
     rand = prng.random();
 
-    // initRand();
     std.log.info("init rand", .{});
 }
 
@@ -21,23 +24,22 @@ export fn event(ev: ?*const sk.app.Event) void {
     }
 }
 
-export fn frame() void {}
-
 fn initRand() void {
     var prng = std.Random.DefaultPrng.init(@intCast(std.time.timestamp()));
     rand = prng.random();
 }
 
 pub fn main() void {
-    initRand();
+
+    // method 1
+    // initRand();
 
     sk.app.run(.{
-        .window_title = "拼好饭传奇",
+        .window_title = "sokol",
         .width = 640,
         .height = 480,
         .init_cb = init,
         .event_cb = event,
-        .frame_cb = frame,
         .logger = .{ .func = sk.log.func },
     });
 }
